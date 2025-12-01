@@ -25,13 +25,20 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home>  {
- final perguntas = [
-  'Qual sua cor favorita?',
-  'Qual o seu animal favorito?',
-  'Qual seu esporte favorito?',
-  'Qual é o seu time?',
-  'Qual é o seu hobby?',
- ];
+  final perguntas = [
+    {
+      'pergunta': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco', 'Azul', 'Rosa'],
+      },
+      {
+      'pergunta': 'Qual é o seu animal favorito?',
+      'respostas': ['Cachorro', 'Gato', 'Coelho', 'Pássaro', 'Peixe', 'Cavalo'],
+      },
+      {
+      'pergunta': 'Qual é o seu time?',
+      'respostas': ['Palmeiras', 'Flamengo', 'Corinthians', 'São Paulo', 'Santos'],    
+    }  
+  ];
 
  var indicePergunta = 0;
 
@@ -58,15 +65,13 @@ class HomeState extends State<Home>  {
         child: Column(
           children: [
             Text(
-              perguntas[indicePergunta],
-              style: TextStyle(fontSize: 30)
+              perguntas[indicePergunta]['pergunta'].toString(),
+              style: TextStyle(fontSize: 25)
             ),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-          ],
+            SizedBox(height: 20,),
+            ...((perguntas[indicePergunta]['respostas'] as List<String>)
+                .map((textoBotao) => Botoes(resp: responder, txt: textoBotao)) 
+                .toList()),            ],
         ),
       ),
     );
