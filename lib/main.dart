@@ -25,21 +25,47 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home>  {
+ final perguntas = [
+  'Qual sua cor favorita?',
+  'Qual o seu animal favorito?',
+  'Qual seu esporte favorito?',
+  'Qual é o seu time?',
+  'Qual é o seu hobby?',
+ ];
+
+ var indicePergunta = 0;
+
+ void responder() {
+  if (indicePergunta < perguntas.length - 1) {
+    indicePergunta++;
+  } else {
+    indicePergunta = 0;
+  }
+  setState(() {});
+ }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Perguntas'),
+        title: const Text('Genis Ferreira', style: TextStyle(fontSize: 30)),
         centerTitle: true,
+        backgroundColor: Colors.amber,
+        toolbarHeight: 80,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
-            Text("Perguntas", style: TextStyle(fontSize: 40),),
-            Botoes(),
-            Botoes(),
-            Botoes(),
+            Text(
+              perguntas[indicePergunta],
+              style: TextStyle(fontSize: 30)
+            ),
+            Botoes(resp: responder),
+            Botoes(resp: responder),
+            Botoes(resp: responder),
+            Botoes(resp: responder),
+            Botoes(resp: responder),
           ],
         ),
       ),
