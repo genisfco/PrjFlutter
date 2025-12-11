@@ -32,10 +32,18 @@ class HomeState extends State<Home>  {
   final dados = perguntasRespostas;
   List respostas = [];
   var indicePergunta = 0;
+  var totalPontos = 0;
 
-  void responder(String r) {
+  @override
+  void initState() {
+    super.initState();
+    perguntasRespostas.shuffle();
+  }
+
+  void responder(String r, int ponto) {
     String p = dados[indicePergunta].pergunta;
-    respostas.add({'pergunta': p, 'resposta': r});
+    respostas.add({'pergunta': p, 'resposta': r, 'ponto': ponto});
+    totalPontos += ponto;
     indicePergunta++;
     setState(() {});
   }
@@ -43,7 +51,9 @@ class HomeState extends State<Home>  {
   void reiniciar() {
     setState(() {
       indicePergunta = 0;
+      totalPontos = 0;
       respostas = []; 
+      perguntasRespostas.shuffle();
     });
   }
 
@@ -61,17 +71,16 @@ class HomeState extends State<Home>  {
         backgroundColor: Colors.green,
         toolbarHeight: 80,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: temPergunta
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [ temPergunta
             ? ListaPerguntas(
                 indicePergunta: indicePergunta,
                 perguntas: dados,
                 responder: responder,
               ) //ListaPerguntas
-            : Resultado(respostas, reiniciar)                
-      ),
-    );
+            : Resultado(respostas, reiniciar, totalPontos),
+      ]),              
+    );    
   }
-
 }
