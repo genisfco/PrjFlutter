@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './botoes.dart';
+import 'dados.dart';
+
+
 
 void main() {
   runApp(const PerguntasApp());
@@ -25,31 +27,28 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home>  {
-  final perguntas = [
-    {
-      'pergunta': 'Qual é a sua cor favorita?',
-      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco', 'Azul', 'Rosa'],
-      },
-      {
-      'pergunta': 'Qual é o seu animal favorito?',
-      'respostas': ['Cachorro', 'Gato', 'Coelho', 'Pássaro', 'Peixe', 'Cavalo'],
-      },
-      {
-      'pergunta': 'Qual é o seu time?',
-      'respostas': ['Palmeiras', 'Flamengo', 'Corinthians', 'São Paulo', 'Santos'],    
-    }  
-  ];
+  final dados = perguntasRespostas;
+  List respostas = [];
+  var indicePergunta = 0;
 
- var indicePergunta = 0;
-
- void responder() {
-  if (indicePergunta < perguntas.length - 1) {
+  void responder(String r) {
+    String p = dados[indicePergunta].pergunta;
+    respostas.add({'pergunta': p, 'resposta': r});
     indicePergunta++;
-  } else {
-    indicePergunta = 0;
+    setState(() {});
   }
-  setState(() {});
- }
+
+  void reiniciar() {
+    setState(() {
+      indicePergunta = 0;
+      respostas = []; 
+    });
+  }
+
+  bool get temPergunta {
+    return indicePergunta < dados.length;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +61,13 @@ class HomeState extends State<Home>  {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Text(
-              perguntas[indicePergunta]['pergunta'].toString(),
-              style: TextStyle(fontSize: 25)
-            ),
-            SizedBox(height: 20,),
-            ...((perguntas[indicePergunta]['respostas'] as List<String>)
-                .map((textoBotao) => Botoes(resp: responder, txt: textoBotao)) 
-                .toList()),            ],
-        ),
+        child: temPergunta
+            ? ListaPerguntas(
+                indicePergunta: indicePergunta,
+                perguntas: dados,
+                responder: responder,
+              ) //ListaPerguntas
+            : Resultado(respostas, reiniciar)                
       ),
     );
   }
