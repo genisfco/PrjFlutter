@@ -3,6 +3,7 @@ import 'dados.dart';
 import 'lista_perguntas.dart';
 import 'resultado.dart';
 
+import 'package:google_fonts/google_fonts.dart';
 
 
 void main() {
@@ -16,6 +17,7 @@ class PerguntasApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: GoogleFonts.lato().fontFamily),
       home: Home(),
     );
   }
@@ -71,6 +73,7 @@ class HomeState extends State<Home>  {
         backgroundColor: Colors.green,
         toolbarHeight: 80,
       ),
+      backgroundColor: const Color.fromARGB(255, 203, 233, 215),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [ temPergunta
