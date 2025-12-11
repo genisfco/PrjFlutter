@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Botoes extends StatelessWidget {
   const Botoes({required this.resp, required this.txt, super.key});
 
-  final void Function()resp;
+  final void Function(String)resp;
   final String txt;
 
   @override
@@ -13,9 +13,9 @@ class Botoes extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: resp,
+          onPressed: () => resp(txt),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.orange,
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.zero, //

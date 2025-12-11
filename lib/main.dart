@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dados.dart';
+import 'lista_perguntas.dart';
 
 
 
@@ -56,7 +57,7 @@ class HomeState extends State<Home>  {
       appBar: AppBar(
         title: const Text('Genis Ferreira', style: TextStyle(fontSize: 30)),
         centerTitle: true,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.green,
         toolbarHeight: 80,
       ),
       body: Padding(
@@ -67,7 +68,7 @@ class HomeState extends State<Home>  {
                 perguntas: dados,
                 responder: responder,
               ) //ListaPerguntas
-            : Resultado(respostas, reiniciar)                
+            : null // Resultado(respostas, reiniciar)                
       ),
     );
   }
